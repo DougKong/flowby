@@ -1,6 +1,23 @@
 <section data-ng-controller="IndexController">
-	 <h1>This is the home view</h1>
+	 <h1>Remember to add to footer.jade</h1>
 </section>
+<section data-ng-controller="DriversController">
+  Show the list of Drivers
+  <div class="drivers-list"></div>
+<div class="gridStyle" ng-grid="myOptions"></div>
+</section>
+<section data-ng-controller="RoutesController">
+  {{}}
+
+  <ul>
+    <li ng-repeat="step in steps | orderBy:'order'">
+      {{step.instruction}}	{{step.distance}}	{{step.duration}}
+    </li>
+  </ul>
+  <div class="route-table">
+  </div>
+</section>
+
 <section data-ng-controller="MapController">
   <div class="google-map"
 		center="position.coords"
@@ -14,4 +31,8 @@
 		events="eventsProperty"
 		style="height: 600px; width: 800px"> fail
 	</div>
+</section>
+<section data-ng-controller="ScheduleController">
+  <gh-visualization val="data"></gh-visualization>
+  <!-- <div class="schedule-chart"></div> -->
 </section>
