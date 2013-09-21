@@ -6,12 +6,20 @@ angular.module('mean.map')
       // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
       $scope.myOptions = {data: 'shipments'};
       $scope.shipments = [];
+      $scope.markers = [];
       var deferred = $q.defer();
 
       $scope.getShipments = function() {
         console.log($scope.deferred);
         Shipments.query("", function(shipments) {
           $scope.shipments = shipments;
+          for (var i =0; i < shipments.length; i++) {
+            $scope.markers[i] = {
+              latitude: $scope.shipments[i].latitude,
+              longitude: $scope.shipments[i].longitude,
+              infoWindow: $scope.shipments[i].value.toString()
+            };
+          }
           deferred.resolve(shipments);
         });
       };
@@ -33,7 +41,7 @@ angular.module('mean.map')
           /** the initial zoom level of the map */
           zoomProperty: 8,
           /** list of markers to put in the map */
-          markersProperty: $scope.shipments,
+          markersProperty: $scope.markers,
 
           //These 2 properties will be set when clicking on the map
           clickedLatitudeProperty: null,
