@@ -1,0 +1,10 @@
+<section data-ng-controller="MapController" data-ng-init="getShipments()">
+  <h2>Shipments</h2>
+  
+  <ul>
+    <li ng-repeat="shipment in myData">
+      {{shipment.latitude}}, {{shipment.longitude}}, {{shipment.value}}
+    </li>
+  </ul>
+  <div class="gridStyle" ng-grid="myOptions"></div>
+</section>

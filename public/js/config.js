@@ -17,6 +17,9 @@ window.app.config(['$routeProvider',
         when('/', {
             templateUrl: 'views/index.html'
         }).
+        when('/shipments', {
+          templateUrl: 'views/shipments/list.html'
+        }).
         otherwise({
             redirectTo: '/'
         });

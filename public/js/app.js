@@ -4,12 +4,14 @@ window.app = angular.module('mean', ['ngCookies', 'ngResource',
 		'mean.articles',
   'mean.map',
 		'mean.schedule',
+		'mean.shipments',
 		'mean.drivers'
 		]);
 
 angular.module('mean.system', []);
 angular.module('mean.articles', []);
 angular.module('mean.routes', []);
-angular.module('mean.map', ["google-maps"]);
+angular.module('mean.map', ["google-maps", 'ngGrid']);
 angular.module('mean.schedule', []);
 angular.module('mean.drivers', ['ngGrid']);
+angular.module('mean.shipments', []);

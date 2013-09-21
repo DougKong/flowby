@@ -77,4 +77,7 @@ module.exports = function(app, passport, auth) {
     var index = require('../app/controllers/index');
     app.get('/', index.render);
 
+    // Get all shipments (unassigned and assigned)
+    var shipments = require('../app/controllers/shipments');
+    app.get('/shipments', shipments.all);
 };

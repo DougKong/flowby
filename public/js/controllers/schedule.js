@@ -64,7 +64,6 @@ angular.module('mean.schedule').directive('ghVisualization', function () {
     },
     template: '<div class="scheduleChart"></div>',
     link: function (scope, element, attrs) {
-      console.log('ghVisualization');    
       gantt(tasks);
     }
   };  
