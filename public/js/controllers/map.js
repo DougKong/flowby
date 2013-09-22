@@ -17,7 +17,7 @@ angular.module('mean.map')
             $scope.markers[i] = {
               latitude: $scope.shipments[i].latitude,
               longitude: $scope.shipments[i].longitude,
-              icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FF00FF',
+              icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + $scope.shipments[i].iconColor,
               infoWindow: $scope.shipments[i].value.toString()
             };
           }
