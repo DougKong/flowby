@@ -49,12 +49,38 @@ angular.module('mean.map')
           markersProperty: $scope.markers,
         });
       };
+      $scope.getRoutes = function() {
+        var m = $scope.markers;
+        var myMap = new google.maps.Map(document.getElementById("my-map"));
+        var directionsPanel = document.getElementById("directions-panel");
+        var tsp = new BpTspSolver(myMap, directionsPanel);
+        tsp.setAvoidHighways(true);
+        tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
+
+        var someFunction = function() {
+          console.log('two');
+        };
+
+        for (var i =0; i < 10; i++) {
+          var lat = m[i].latitude;
+          var lng = m[i].longitude;
+          var latlng = new google.maps.LatLng(lat, lng);
+          tsp.addWaypoint(latlng, someFunction);
+        }
+        console.log('three');
+        tsp.solveRoundTrip(function(){console.log('four');});
+      };
+
       $scope.getShipments();
       $scope.getMap();
       deferred.promise.then(
         function() {
           $scope.getMarkers();
-      });
-
+          console.log('one');
+      }).then(
+        function() {
+          $scope.getRoutes();
+        }
+      );
     }]
   );
