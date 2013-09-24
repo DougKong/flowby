@@ -1,6 +1,8 @@
 angular.module('mean.routes')
 .controller('RoutesController', 
   ["$scope", function ($scope) {
+    $scope.oneAtATime = true;
+
     $scope.routes = [ 
       {
         shipmentName: "first shipment", 
