@@ -25,22 +25,16 @@ angular.module('mean.map')
       };
 
       $scope.getMap = function() {
+        var m = $scope.markers;
+        var mapOptions = {
+          zoom: 13,
+          center: new google.maps.LatLng(m[0].latitude, m[0].longitude),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
         google.maps.visualRefresh = true;
-        angular.extend($scope, {
-          position: {
-            coords: {
-              latitude: 37.7835939,
-              longitude: -122.40890360000003
-            }
-          },
-          /** the initial center of the map */
-          centerProperty: {
-            latitude: 37.7835939,
-            longitude: -122.40890360000003
-          },
-          /** the initial zoom level of the map */
-          zoomProperty: 13
-        });
+        $scope.myMap = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        $scope.directionsPanel = document.getElementById("directions-panel");
       };
       $scope.getMarkers = function() {
         angular.extend($scope, {    
@@ -50,15 +44,7 @@ angular.module('mean.map')
       };
       $scope.getRoutes = function() {
         var m = $scope.markers;
-        var mapOptions = {
-          zoom: 13,
-          center: new google.maps.LatLng(m[0].latitude, m[0].longitude),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        var myMap = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-        var directionsPanel = document.getElementById("directions-panel");
-        var tsp = new BpTspSolver(myMap, directionsPanel);
+        var tsp = new BpTspSolver($scope.myMap, $scope.directionsPanel);
         tsp.setAvoidHighways(true);
         tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
 
@@ -79,14 +65,14 @@ angular.module('mean.map')
               firstLegCoordinates.push(legs[k].steps[j].start_location);
             }
           }
-          var driveLeg = new google.maps.Polyline({path: firstLegCoordinates, map: myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2});
-          $scope.firstLegCoordinates = firstLegCoordinates;
-          driveLeg.setMap(myMap);
+          var driveLeg = new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2});
         });
       };
       $scope.getShipments();
-      $scope.getMap();
       deferred.promise.then(
+        function() {
+          $scope.getMap();
+      }).then(
         function() {
           $scope.getMarkers();
       }).then(
