@@ -16,6 +16,7 @@ angular.module('mean.map')
             $scope.markers[i] = {
               latitude: $scope.shipments[i].latitude,
               longitude: $scope.shipments[i].longitude,
+              cluster: $scope.shipments[i].cluster,
               icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + $scope.shipments[i].iconColor,
               infoWindow: $scope.shipments[i].value.toString()
             };
@@ -52,14 +53,8 @@ angular.module('mean.map')
         tsp.setAvoidHighways(true);
         tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
 
-        for (var i =0; i < 3; i++) {
-          var lat = m[i].latitude;
-          var lng = m[i].longitude;
-          var latlng = new google.maps.LatLng(lat, lng);
 
-          tsp.addWaypoint(latlng);
-        }
-        tsp.solveRoundTrip(function(){
+        var addPath = function() {
           var dir = tsp.getGDirections();
           var legs = dir.routes[0].legs;
           var firstLegCoordinates = [];
@@ -70,8 +65,31 @@ angular.module('mean.map')
             }
           }
           var driveLeg = new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2});
-        });
+        };
+
+        var clusterGroup = 0;
+        var inCluster = 0;
+
+       do {
+          inCluster = 0;
+
+          for (var i = 0; i < m.length; i++) {
+            if (m[i].cluster === clusterGroup) {
+              var lat = m[i].latitude;
+              var lng = m[i].longitude;
+              var latlng = new google.maps.LatLng(lat, lng);
+              tsp.addWaypoint(latlng);
+              inCluster++;
+            }
+          }
+
+          if (inCluster > 0) {
+            tsp.solveRoundTrip(addPath);
+          }
+          clusterGroup++;
+        } while (inCluster > 0 && clusterGroup < 5);
       };
+
       $scope.getShipments();
       deferred.promise.then(
         function() {
