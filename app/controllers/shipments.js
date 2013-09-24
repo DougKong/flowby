@@ -54,12 +54,13 @@ exports.all = function(req, res) {
   var container = [];
   var preClustering = [];
   var clusters = [];
-  var shipments = 30;
-  var drivers = 3;
+  var shipments = 3;
+  var drivers = 1;
   var baseLat = 44;
   var baseLong = -74;
-  var iconColors = ['FF0000', '00FF00', '0000FF', 'FFFF00', '00FFFF', 'FF00FF', 'C0C0C0'];
+  var iconColors = ['00FF00', '0000FF', 'FFFF00', '00FFFF', 'FF00FF', 'C0C0C0'];
 
+/*
   for (var i = 0; i < shipments; i++)
   {
     var myLat = baseLat + Math.random();
@@ -68,10 +69,22 @@ exports.all = function(req, res) {
     container.push({latitude: myLat, longitude: myLong, value: value });
     preClustering.push([myLat, myLong]);
   }
+*/
+// hard code the same 3 shipments as the google-map-tsp-solver working example
+  container.push({latitude: 37.7835939, longitude: -122.40890360000003, value: 11 });
+  container.push({latitude: 37.7649789, longitude: -122.46778, value: 12 });
+  container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 13 });
+  preClustering.push([37.7835939, -122.40890360000003]);
+  preClustering.push([37.7649789, -122.46778]);
+  preClustering.push([37.8079231, -122.41833200000002]);
+
   clusters = clusterfck.kmeans(preClustering, drivers);
 
+
   for (var j=0; j < container.length; j++) {
-    container[j].iconColor = iconColors[findClusterGroup(clusters, container[j])];
+    var clusterFound = findClusterGroup(clusters, container[j]);
+    container[j].cluster = clusterFound;
+    container[j].iconColor = iconColors[clusterFound];
   }
   res.jsonp(container);
 };
