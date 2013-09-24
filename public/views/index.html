@@ -1,19 +1,30 @@
 <section data-ng-controller="IndexController">
-	 <h1>Remember to add to head.jade, footer.jade</h1>
-</section>
-<section data-ng-controller="DriversController">
-  <div class="drivers-list"></div>
-<div class="gridStyle" ng-grid="myOptions"></div>
-</section>
-<section data-ng-controller="RoutesController">
-  <div class="gridStyle" ng-grid="myOptions"></div>
-  <div class="route-table"></div>
+	 <h1></h1>
 </section>
 
-<section data-ng-controller="MapController">
-  <div id="map-canvas">fail</div>
-  <div id="directions-panel">blahablah</div>
-</section>
+<div class="row">
+  <div class="span4">
+    <div class="row">
+      <section data-ng-controller="DriversController">
+        <div class="drivers-list"></div>
+        <div class="driversGridStyle" ng-grid="myOptions"></div>
+      </section>
+    </div>
+    <div class="row">
+      <section data-ng-controller="RoutesController">
+        <div class="routesGridStyle" ng-grid="myOptions"></div>
+        <div class="route-table"></div>
+      </section>
+    </div>
+  </div>
+  <div class="span8">
+    <section data-ng-controller="MapController">
+      <div id="map-canvas">fail</div>
+      <div id="directions-panel"></div>
+    </section>
+  </div>
+</div>
+
 <section data-ng-controller="ScheduleController">
   <gh-visualization val="data"></gh-visualization>
   <!-- <div class="schedule-chart"></div> -->
