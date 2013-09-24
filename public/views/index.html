@@ -10,9 +10,14 @@
         <div class="driversGridStyle" ng-grid="myOptions"></div>
       </section>
     </div>
+    <div class="row"><div class="horizonSeparate"></div></div>
     <div class="row">
       <section data-ng-controller="RoutesController">
-        <div class="routesGridStyle" ng-grid="myOptions"></div>
+        <accordion close-others="oneAtATime">
+          <accordion-group heading="{{route.shipmentName}}" ng-repeat="route in routes">
+            <div class="routesGridStyle" ng-grid="myOptions"></div>
+          </accordion-group>
+        </accordion>
         <div class="route-table"></div>
       </section>
     </div>

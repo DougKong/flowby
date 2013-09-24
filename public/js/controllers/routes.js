@@ -1,26 +1,35 @@
 angular.module('mean.routes')
 .controller('RoutesController', 
   ["$scope", function ($scope) {
-    $scope.myData = [
-      {order: 1, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 2, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 3, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 4, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 5, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 6, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 7, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 8, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 9, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 10, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 11, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 12, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 13, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 14, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 15, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 16, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 17, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
-      {order: 18, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
-      {order: 19, instruction:'turn right', distance:'28mi', duration:'7 minutes'}
+    $scope.routes = [ 
+      {
+        shipmentName: "first shipment", 
+        steps: [
+          {step: 1, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 2, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 3, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 4, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 5, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 6, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 7, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 8, instruction:'turn left', distance:'11mi', duration:'5 minutes'}
+        ]
+      },
+      {
+        shipmentName: '2nd shipment',
+        steps: [
+          {step: 1, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 2, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 3, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 4, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 5, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 6, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 7, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 8, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 9, instruction:'turn right', distance:'5mi', duration:'3 minutes'},
+          {step: 10, instruction:'turn left', distance:'11mi', duration:'5 minutes'},
+          {step: 11, instruction:'turn right', distance:'28mi', duration:'7 minutes'}]
+      }
     ];
-  $scope.myOptions = { data: 'myData' };
+  $scope.myOptions = { data: 'route.steps' };
 }]);
