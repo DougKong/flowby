@@ -37,10 +37,14 @@ angular.module('mean.map')
         $scope.directionsPanel = document.getElementById("directions-panel");
       };
       $scope.getMarkers = function() {
-        angular.extend($scope, {    
-          /** list of markers to put in the map */
-          markersProperty: $scope.markers,
-        });
+        var m = $scope.markers;
+        console.log('getMarkers');
+        for (var i =0; i < m.length; i++) {
+          var lat = m[i].latitude;
+          var lng = m[i].longitude;
+          var latlng = new google.maps.LatLng(lat, lng);
+          var marker = new google.maps.Marker({position: latlng, icon: m[i].icon, infoWindow: m[i].infoWindow, map: $scope.myMap});
+        }
       };
       $scope.getRoutes = function() {
         var m = $scope.markers;
