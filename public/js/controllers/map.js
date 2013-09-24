@@ -8,6 +8,7 @@ angular.module('mean.map')
       $scope.shipments = [];
       $scope.markers = [];
       var deferred = $q.defer();
+      var deferredRouteSolved = $q.defer();
 
       $scope.getShipments = function() {
         Shipments.query("", function(shipments) {
@@ -22,6 +23,7 @@ angular.module('mean.map')
             };
           }
           deferred.resolve(shipments);
+
         });
       };
 
@@ -39,7 +41,6 @@ angular.module('mean.map')
       };
       $scope.getMarkers = function() {
         var m = $scope.markers;
-        console.log('getMarkers');
         for (var i =0; i < m.length; i++) {
           var lat = m[i].latitude;
           var lng = m[i].longitude;
@@ -49,12 +50,20 @@ angular.module('mean.map')
       };
       $scope.getRoutes = function() {
         var m = $scope.markers;
+
         var tsp = new BpTspSolver($scope.myMap, $scope.directionsPanel);
         tsp.setAvoidHighways(true);
         tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
 
-
-        var addPath = function() {
+        for (var i = 0; i < m.length; i++) {
+          if (m[i].cluster === 0) {
+            var lat = m[i].latitude;
+            var lng = m[i].longitude;
+            var latlng = new google.maps.LatLng(lat, lng);
+            tsp.addWaypoint(latlng);
+          }
+        }
+        tsp.solveRoundTrip(function() {
           var dir = tsp.getGDirections();
           var legs = dir.routes[0].legs;
           var firstLegCoordinates = [];
@@ -65,29 +74,55 @@ angular.module('mean.map')
             }
           }
           var driveLeg = new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2});
-        };
 
-        var clusterGroup = 0;
-        var inCluster = 0;
-
-       do {
-          inCluster = 0;
+          tsp.startOver();
 
           for (var i = 0; i < m.length; i++) {
-            if (m[i].cluster === clusterGroup) {
+            if (m[i].cluster === 1) {
               var lat = m[i].latitude;
               var lng = m[i].longitude;
               var latlng = new google.maps.LatLng(lat, lng);
               tsp.addWaypoint(latlng);
-              inCluster++;
             }
           }
 
-          if (inCluster > 0) {
-            tsp.solveRoundTrip(addPath);
-          }
-          clusterGroup++;
-        } while (inCluster > 0 && clusterGroup < 5);
+          tsp.solveRoundTrip(function() {
+            var dir = tsp.getGDirections();
+            var legs = dir.routes[0].legs;
+            var firstLegCoordinates = [];
+
+            for (var k=0; k < legs.length; k++) {
+              for (var j=0; j < legs[k].steps.length;j++) {
+                firstLegCoordinates.push(legs[k].steps[j].start_location);
+              }
+            }
+            var driveLeg = new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2});
+
+            tsp.startOver();
+
+            for (var i = 0; i < m.length; i++) {
+              if (m[i].cluster === 2) {
+                var lat = m[i].latitude;
+                var lng = m[i].longitude;
+                var latlng = new google.maps.LatLng(lat, lng);
+                tsp.addWaypoint(latlng);
+              }
+            }
+
+            tsp.solveRoundTrip(function() {
+              var dir = tsp.getGDirections();
+              var legs = dir.routes[0].legs;
+              var firstLegCoordinates = [];
+
+              for (var k=0; k < legs.length; k++) {
+                for (var j=0; j < legs[k].steps.length;j++) {
+                  firstLegCoordinates.push(legs[k].steps[j].start_location);
+                }
+              }
+              var driveLeg = new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2});
+            });
+          });
+        });
       };
 
       $scope.getShipments();
