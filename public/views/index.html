@@ -6,35 +6,50 @@
   <div class="span4">
     <div class="row">
       <section data-ng-controller="DriversController">
-        <div class="drivers-list"></div>
-        <div class="driversGridStyle" ng-grid="myOptions"></div>
+        <div class="span12">
+          <div class="row">Drivers</div>
+          <div class="row">
+            <div class="driversGridStyle" ng-grid="myOptions"></div>
+          </div>
+        </div>
       </section>
     </div>
-    <div class="row"><div class="horizonSeparate"></div></div>
+    <div class="row">
+      <div class="horizonSeparate">
+      </div>
+    </div>
     <div class="row">
       <section data-ng-controller="RoutesController">
-        <accordion close-others="oneAtATime">
-          <accordion-group heading="{{route.shipmentName}}" ng-repeat="route in routes">
-            <div class="routesGridStyle" ng-grid="myOptions"></div>
-          </accordion-group>
-        </accordion>
-        <div class="route-table"></div>
+        <div class="span4">
+          <div class="row">Routes For </div>
+          <div class="row">
+            <div class="span4">
+              <div class="row">
+                <accordion close-others="oneAtATime">
+                  <accordion-group heading="{{route.shipmentName}}" ng-repeat="route in routes">
+                    <div class="routesGridStyle" ng-grid="myOptions"></div>
+                  </accordion-group>
+                </accordion>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </div>
   <div class="span8">
     <tabset>
+    <tab heading="Schedule">
+      <section data-ng-controller="ScheduleController">
+        <gh-visualization val="data"></gh-visualization>
+      </section>
+    </tab>      
+
     <tab heading="Map">
     <section data-ng-controller="MapController">
       <div id="map-canvas">fail</div>
       <div id="directions-panel"></div>
     </section>
-    </tab>
-    <tab heading="Schedule">
-      <section data-ng-controller="ScheduleController">
-        <gh-visualization val="data"></gh-visualization>
-          <!-- <div class="schedule-chart"></div> -->
-      </section>
     </tab>
     <tab heading="Costs">
     </tab>
@@ -44,4 +59,6 @@
   </div>
 </div>
 
-
+<!-- <section data-ng-controller="ScheduleController">
+  <gh-visualization val="data"></gh-visualization>
+</section> -->
