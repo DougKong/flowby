@@ -23,14 +23,25 @@
     </div>
   </div>
   <div class="span8">
+    <tabset>
+    <tab heading="Map">
     <section data-ng-controller="MapController">
       <div id="map-canvas">fail</div>
       <div id="directions-panel"></div>
     </section>
+    </tab>
+    <tab heading="Schedule">
+      <section data-ng-controller="ScheduleController">
+        <gh-visualization val="data"></gh-visualization>
+          <!-- <div class="schedule-chart"></div> -->
+      </section>
+    </tab>
+    <tab heading="Costs">
+    </tab>
+    <tab heading="Shipments">
+    </tab>
+    </tabset>
   </div>
 </div>
 
-<section data-ng-controller="ScheduleController">
-  <gh-visualization val="data"></gh-visualization>
-  <!-- <div class="schedule-chart"></div> -->
-</section>
+
