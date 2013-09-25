@@ -21,7 +21,15 @@
     <div class="row">
       <section data-ng-controller="RoutesController">
         <div class="span4">
-          <div class="row">Routes For </div>
+          <div class="dropdown">
+          <div class="row">Routes For <a class="dropdown-toggle">{{selectedDriver.name}}</a>
+            <ul class="dropdown-menu">
+              <li ng-repeat="driver in selectedDrivers">
+                <a  ng-click="select(driver)">{{driver.name}}</a>
+              </li>
+            </ul>
+          </div>
+          </div>
           <div class="row">
             <div class="span4">
               <div class="row">

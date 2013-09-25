@@ -3,6 +3,13 @@ angular.module('mean.routes')
   ["$scope", function ($scope) {
     $scope.oneAtATime = true;
 
+    $scope.selectedDrivers = [{name: "Jim"}, {name:"Dave"}, {name:"Alice"}, {name: "Tim"}];
+    $scope.selectedDriver = $scope.selectedDrivers[0];
+
+    $scope.select = function(driver) {
+      $scope.selectedDriver = driver;
+    };
+
     $scope.routes = [ 
       {
         shipmentName: "first shipment", 
