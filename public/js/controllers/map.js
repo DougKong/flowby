@@ -194,6 +194,28 @@ angular.module('mean.map')
         });
       };
 
+      $scope.changeLegend = function(drivers) {
+        var legend = document.getElementById('legend');
+        var name = 'Home';
+        var icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + 'FF0000';
+
+        legend.value = '';
+
+        var div = document.createElement('div');
+        div.innerHTML = '<img src="' + icon + '"> ' + name;
+        legend.appendChild(div);
+        for (var i=0; i < drivers.length;i++) {
+
+          name = drivers[i].name;
+          icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + iconColors[i];
+          div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+        $scope.myMap.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
+        document.getElementById('legend'));
+      };
+
       $scope.$on('selectedDriversChanged', function(event, drivers) {
         var timeThreshold = new Date(timeDriverCountChanged.getTime() + 1000);
         var now  = new Date();
@@ -206,6 +228,7 @@ angular.module('mean.map')
           $scope.getShipments(drivers.length, function() {
             $scope.getMarkers(function() {
               $scope.getRoutes();
+              $scope.changeLegend(drivers);
             });
           });
           timeDriverCountChanged = now;
