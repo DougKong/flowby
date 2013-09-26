@@ -17,8 +17,8 @@ angular.module('mean.map')
       tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
 
 
-      $scope.getShipments = function(callback) {
-        Shipments.query("", function(shipments) {
+      $scope.getShipments = function(drivers, callback) {
+        Shipments.query({"drivers": drivers}, function(shipments) {
           $scope.shipments = shipments;
           for (var i =0; i < shipments.length; i++) {
             $scope.markers[i] = {
@@ -178,7 +178,7 @@ angular.module('mean.map')
           }
 
           routes = [];
-          $scope.getShipments(function() {
+          $scope.getShipments(drivers.length, function() {
             $scope.getMarkers(function() {
               $scope.getRoutes();
             });
@@ -188,7 +188,7 @@ angular.module('mean.map')
       });
 
       $scope.init = function() {
-        $scope.getShipments(function() {
+        $scope.getShipments(3, function() {
           $scope.getMap(function() {
             $scope.getHomeMarker(function() {
               $scope.getMarkers(function() {

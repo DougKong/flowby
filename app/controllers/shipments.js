@@ -54,12 +54,13 @@ exports.all = function(req, res) {
   var container = [];
   var preClustering = [];
   var clusters = [];
+  var drivers = req.query.drivers;
+
+/*
   var shipments = 3;
-  var drivers = 4;
   var baseLat = 44;
   var baseLong = -74;
 
-/*
   for (var i = 0; i < shipments; i++)
   {
     var myLat = baseLat + Math.random();
