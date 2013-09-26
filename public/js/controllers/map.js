@@ -163,6 +163,31 @@ angular.module('mean.map')
                   }
                 }
                 routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[3], strokeOpacity: 1.0, strokeWeight: 2}));
+
+                for (var i = 0; i < m.length; i++) {
+                  if (m[i].cluster === 4) {
+                    var lat = m[i].latitude;
+                    var lng = m[i].longitude;
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    tsp.addWaypoint(latlng);
+                  }
+                }
+
+                tsp.addWaypoint($scope.home);
+                tsp.setAsStart($scope.home);
+                tsp.solveRoundTrip(function() {
+                  var dir = tsp.getGDirections();
+                  var legs = dir.routes[0].legs;
+                  var firstLegCoordinates = [];
+
+                  tsp.startOver();
+                  for (var k=0; k < legs.length; k++) {
+                    for (var j=0; j < legs[k].steps.length;j++) {
+                      firstLegCoordinates.push(legs[k].steps[j].start_location);
+                    }
+                  }
+                  routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[4], strokeOpacity: 1.0, strokeWeight: 2}));                
+                });
               });
             });
           });
@@ -188,7 +213,7 @@ angular.module('mean.map')
       });
 
       $scope.init = function() {
-        $scope.getShipments(3, function() {
+        $scope.getShipments(5, function() {
           $scope.getMap(function() {
             $scope.getHomeMarker(function() {
               $scope.getMarkers(function() {

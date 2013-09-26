@@ -8,10 +8,12 @@ angular.module('mean.drivers')
     { name: 'Blake', telephone: "(617)-378-3989" },
     { name: 'Martin', telephone: "(697)-378-3989" },
     { name: 'Mike', telephone: "(667)-378-3989" },
-    { name: 'Will', telephone: "(640)-668-3989" },
+    { name: 'Will', telephone: "(640)-668-3990" },
     { name: 'Dave', telephone: "(348)-238-8982" },
     { name: 'Peter', telephone: "(370)-382-1010" },
+    { name: 'Andre', telephone: "(310)-372-1010" },
     { name: 'Tae', telephone: "(370)-382-1010" },
+    { name: 'Jess', telephone: "(370)-389-1600" },
     { name: 'Lindsay', telephone: "(370)-382-1010" },
     { name: 'Doug', telephone: "(370)-382-1010" },
     { name: 'Ruben', telephone: "(280)-532-1310" },
@@ -21,6 +23,11 @@ angular.module('mean.drivers')
 
   $scope.$on('ngGridEventData', function(){
     $scope.myOptions.selectRow(1, true);
+    $scope.myOptions.selectRow(2, true);
+    $scope.myOptions.selectRow(4, true);
+    $scope.myOptions.selectRow(5, true);
+    $scope.myOptions.selectRow(6, true);
+
     driversService.selectDrivers($scope.mySelections);
   });
   $scope.mySelections = [];
