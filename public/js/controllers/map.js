@@ -7,7 +7,7 @@ angular.module('mean.map')
       $scope.myOptions = {data: 'shipments'};
       $scope.shipments = [];
       $scope.markers = [];
-
+      $scope.home = new google.maps.LatLng(37.7835939, -122.40890360000003);
       var routes = [];
       var timeDriverCountChanged = new Date();
       var tsp = new BpTspSolver($scope.myMap, $scope.directionsPanel);
@@ -35,7 +35,7 @@ angular.module('mean.map')
         var m = $scope.markers;
         var mapOptions = {
           zoom: 13,
-          center: new google.maps.LatLng(m[0].latitude, m[0].longitude),
+          center: $scope.home,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
@@ -44,6 +44,16 @@ angular.module('mean.map')
         $scope.directionsPanel = document.getElementById("directions-panel");
         (function() { callback(); })();
       };
+
+      $scope.getHomeMarker = function(callback) {
+        var marker = new google.maps.Marker({
+          position: $scope.home,
+          icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + 'FF0000',
+          map: $scope.myMap
+        });
+        (function() { callback(); })();
+      };
+
       $scope.getMarkers = function(callback) {
         var m = $scope.markers;
         for (var i =0; i < m.length; i++) {
@@ -65,6 +75,8 @@ angular.module('mean.map')
             tsp.addWaypoint(latlng);
           }
         }
+        tsp.addWaypoint($scope.home);
+        tsp.setAsStart($scope.home);
         tsp.solveRoundTrip(function() {
           var dir = tsp.getGDirections();
           var legs = dir.routes[0].legs;
@@ -87,6 +99,8 @@ angular.module('mean.map')
             }
           }
 
+          tsp.addWaypoint($scope.home);
+          tsp.setAsStart($scope.home);
           tsp.solveRoundTrip(function() {
             var dir = tsp.getGDirections();
             var legs = dir.routes[0].legs;
@@ -109,6 +123,8 @@ angular.module('mean.map')
               }
             }
 
+            tsp.addWaypoint($scope.home);
+            tsp.setAsStart($scope.home);
             tsp.solveRoundTrip(function() {
               var dir = tsp.getGDirections();
               var legs = dir.routes[0].legs;
@@ -147,8 +163,10 @@ angular.module('mean.map')
       $scope.init = function() {
         $scope.getShipments(function() {
           $scope.getMap(function() {
-            $scope.getMarkers(function() {
-              $scope.getRoutes();
+            $scope.getHomeMarker(function() {
+              $scope.getMarkers(function() {
+                $scope.getRoutes();
+              });
             });
           });
         });

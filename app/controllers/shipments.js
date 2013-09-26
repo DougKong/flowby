@@ -70,8 +70,6 @@ exports.all = function(req, res) {
     preClustering.push([myLat, myLong]);
   }
 */
-// hard code the same 3 shipments as the google-map-tsp-solver working example
-  container.push({latitude: 37.7835939, longitude: -122.40890360000003, value: 11 });
   container.push({latitude: 37.7649789, longitude: -122.46778, value: 12 });
   container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 13 });
   container.push({latitude: 37.79567779417, longitude: -122.4214975332, value: 14 });
@@ -88,7 +86,7 @@ exports.all = function(req, res) {
   container.push({latitude: 37.7945354105227, longitude: -122.416146766003, value: 25 });
   container.push({latitude: 37.7357241811434, longitude: -122.446668843873, value: 26 });
   container.push({latitude: 37.7899962614841, longitude: -122.411932009537, value: 27 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 28 });
+  container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 28 });
   // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 29 });
   // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 30 });
   // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 31 });
