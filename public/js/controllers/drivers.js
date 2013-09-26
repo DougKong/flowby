@@ -1,5 +1,5 @@
 angular.module('mean.drivers')
-.controller('DriversController', ['$scope', function($scope){
+.controller('DriversController', ['$scope', 'driversService', function($scope, driversService){
   $scope.myData = [
     { name: 'Jim', telephone: "(617)-378-3989" },
     { name: 'Dave', telephone: "(348)-238-8982" },
@@ -10,6 +10,7 @@ angular.module('mean.drivers')
 
   $scope.$on('ngGridEventData', function(){
     $scope.myOptions.selectRow(1, true);
+    driversService.selectDrivers($scope.mySelections);
   });
   $scope.mySelections = [];
   $scope.driversUsed = 0;
@@ -18,7 +19,7 @@ angular.module('mean.drivers')
     selectedItems: $scope.mySelections,
     afterSelectionChange: function(data){
       $scope.driversUsed = $scope.mySelections.length;
+      driversService.selectDrivers($scope.mySelections);
     }
   };
-
 }]);

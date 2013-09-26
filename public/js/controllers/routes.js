@@ -1,10 +1,13 @@
 angular.module('mean.routes')
 .controller('RoutesController', 
-  ["$scope", function ($scope) {
+  ["$scope", "driversService", function ($scope, driverService) {
     $scope.oneAtATime = true;
 
-    $scope.selectedDrivers = [{name: "Jim"}, {name:"Dave"}, {name:"Alice"}, {name: "Tim"}];
-    $scope.selectedDriver = $scope.selectedDrivers[0];
+    $scope.selectedDrivers = [];
+    $scope.$on('selectedDriversChanged', function(event, selectedDrivers) {
+      $scope.selectedDrivers = selectedDrivers;
+      $scope.selectedDriver = $scope.selectedDrivers[$scope.selectedDrivers.length-1];
+    });
 
     $scope.select = function(driver) {
       $scope.selectedDriver = driver;
