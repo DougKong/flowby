@@ -55,7 +55,7 @@ exports.all = function(req, res) {
   var preClustering = [];
   var clusters = [];
   var shipments = 3;
-  var drivers = 3;
+  var drivers = 4;
   var baseLat = 44;
   var baseLong = -74;
 
