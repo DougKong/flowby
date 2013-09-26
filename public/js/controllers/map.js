@@ -12,6 +12,7 @@ angular.module('mean.map')
       var routeColors = ['33FF33', '3333FF', 'FFFF00', '00FFFF', 'FF00FF', 'C0C0C0'];
       var routes = [];
       var timeDriverCountChanged = new Date();
+      var getMapFirstTime = true;
       var tsp = new BpTspSolver($scope.myMap, $scope.directionsPanel);
       tsp.setAvoidHighways(true);
       tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
@@ -196,16 +197,16 @@ angular.module('mean.map')
 
       $scope.changeLegend = function(drivers) {
         var legend = document.getElementById('legend');
+
+        legend.innerHTML = '';
+
         var name = 'Home';
         var icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + 'FF0000';
-
-        legend.value = '';
-
         var div = document.createElement('div');
         div.innerHTML = '<img src="' + icon + '"> ' + name;
         legend.appendChild(div);
-        for (var i=0; i < drivers.length;i++) {
 
+        for (var i=0; i < drivers.length;i++) {
           name = drivers[i].name;
           icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + iconColors[i];
           div = document.createElement('div');
@@ -219,11 +220,24 @@ angular.module('mean.map')
       $scope.$on('selectedDriversChanged', function(event, drivers) {
         var timeThreshold = new Date(timeDriverCountChanged.getTime() + 1000);
         var now  = new Date();
-        if (now > timeThreshold) {
+
+        if (getMapFirstTime) {
+          getMapFirstTime = false;
+          $scope.getShipments(5, function() {
+            $scope.getMap(function() {
+              $scope.getHomeMarker(function() {
+                $scope.getMarkers(function() {
+                  $scope.getRoutes();
+                  $scope.changeLegend(drivers);
+                });
+              });
+            });
+          });
+        }
+        else if (now > timeThreshold) {
           for (var i=0; i<routes.length; i++) {
             routes[i].setMap(null);
           }
-
           routes = [];
           $scope.getShipments(drivers.length, function() {
             $scope.getMarkers(function() {
@@ -234,18 +248,5 @@ angular.module('mean.map')
           timeDriverCountChanged = now;
         }
       });
-
-      $scope.init = function() {
-        $scope.getShipments(5, function() {
-          $scope.getMap(function() {
-            $scope.getHomeMarker(function() {
-              $scope.getMarkers(function() {
-                $scope.getRoutes();
-              });
-            });
-          });
-        });
-      };
-      $scope.init();
     }]
   );
