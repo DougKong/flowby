@@ -8,6 +8,8 @@ angular.module('mean.map')
       $scope.shipments = [];
       $scope.markers = [];
       $scope.home = new google.maps.LatLng(37.7835939, -122.40890360000003);
+      var iconColors = ['00FF00', '0000FF', 'FFFF00', '00FFFF', 'FF00FF', 'C0C0C0'];
+      var routeColors = ['33FF33', '3333FF', 'FFFF00', '00FFFF', 'FF00FF', 'C0C0C0'];
       var routes = [];
       var timeDriverCountChanged = new Date();
       var tsp = new BpTspSolver($scope.myMap, $scope.directionsPanel);
@@ -23,7 +25,7 @@ angular.module('mean.map')
               latitude: $scope.shipments[i].latitude,
               longitude: $scope.shipments[i].longitude,
               cluster: $scope.shipments[i].cluster,
-              icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + $scope.shipments[i].iconColor,
+              icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + iconColors[$scope.shipments[i].cluster],
               infoWindow: $scope.shipments[i].value.toString()
             };
           }
@@ -88,7 +90,7 @@ angular.module('mean.map')
               firstLegCoordinates.push(legs[k].steps[j].start_location);
             }
           }
-          routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2}));
+          routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#" + routeColors[0], strokeOpacity: 1.0, strokeWeight: 2}));
 
           for (var i = 0; i < m.length; i++) {
             if (m[i].cluster === 1) {
@@ -112,7 +114,7 @@ angular.module('mean.map')
                 firstLegCoordinates.push(legs[k].steps[j].start_location);
               }
             }
-            routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2}));
+            routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[1], strokeOpacity: 1.0, strokeWeight: 2}));
 
             for (var i = 0; i < m.length; i++) {
               if (m[i].cluster === 2) {
@@ -136,7 +138,7 @@ angular.module('mean.map')
                   firstLegCoordinates.push(legs[k].steps[j].start_location);
                 }
               }
-              routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2}));
+              routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[2], strokeOpacity: 1.0, strokeWeight: 2}));
             });
           });
         });

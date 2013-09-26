@@ -58,7 +58,6 @@ exports.all = function(req, res) {
   var drivers = 3;
   var baseLat = 44;
   var baseLong = -74;
-  var iconColors = ['00FF00', '0000FF', 'FFFF00', '00FFFF', 'FF00FF', 'C0C0C0'];
 
 /*
   for (var i = 0; i < shipments; i++)
@@ -124,7 +123,6 @@ exports.all = function(req, res) {
   for (var j=0; j < container.length; j++) {
     var clusterFound = findClusterGroup(clusters, container[j]);
     container[j].cluster = clusterFound;
-    container[j].iconColor = iconColors[clusterFound];
   }
   res.jsonp(container);
 };
