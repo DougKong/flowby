@@ -1,6 +1,6 @@
 angular.module('mean.map')
-  .controller('MapController', ['$scope', '$timeout', '$log', 'Shipments', '$q',
-    function($scope, $timeout, $log, Shipments, $q){
+  .controller('MapController', ['$scope', '$timeout', '$log', 'Shipments', '$q', 'driversService',
+    function($scope, $timeout, $log, Shipments, $q, driversService){
 
       // Enable the new Google Maps visuals until it gets enabled by default.
       // See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
@@ -124,6 +124,17 @@ angular.module('mean.map')
           });
         });
       };
+
+      var timeDriverCountChanged = new Date();
+
+      $scope.$on('selectedDriversChanged', function(event, drivers) {
+        var timeThreshold = new Date(timeDriverCountChanged.getTime() + 1000);
+        var now  = new Date();
+        if (now > timeThreshold) {
+          console.log('call to refresh map with', drivers.length, 'drivers');
+          timeDriverCountChanged = now;
+        }
+      });
 
       $scope.init = function() {
         $scope.getShipments();
