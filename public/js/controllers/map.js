@@ -125,17 +125,20 @@ angular.module('mean.map')
         });
       };
 
-      $scope.getShipments();
-      deferred.promise.then(
-        function() {
-          $scope.getMap();
-      }).then(
-        function() {
-          $scope.getMarkers();
-      }).then(
-        function() {
-          $scope.getRoutes();
-        }
-      );
+      $scope.init = function() {
+        $scope.getShipments();
+        deferred.promise.then(
+          function() {
+            $scope.getMap();
+        }).then(
+          function() {
+            $scope.getMarkers();
+        }).then(
+          function() {
+            $scope.getRoutes();
+          }
+        );
+      };
+      $scope.init();
     }]
   );
