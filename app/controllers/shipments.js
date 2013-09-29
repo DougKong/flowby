@@ -86,19 +86,17 @@ exports.all = function(req, res) {
   container.push({latitude: 37.7945354105227, longitude: -122.416146766003, value: 25 });
   container.push({latitude: 37.7357241811434, longitude: -122.446668843873, value: 26 });
   container.push({latitude: 37.7899962614841, longitude: -122.411932009537, value: 27 });
-  container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 28 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 29 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 30 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 31 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 32 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 33 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 34 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 35 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 36 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 37 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 38 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 39 });
-  // container.push({latitude: 37.8079231, longitude: -122.41833200000002, value: 40 });
+  container.push({latitude: 37.7590705667859, longitude: -122.414398699505, value: 28 });
+  container.push({latitude: 37.7678552815667, longitude: -122.422484406562, value: 29 });
+  container.push({latitude: 37.7295235245486, longitude: -122.479519088222, value: 30 });
+  container.push({latitude: 37.7216280665809, longitude: -122.455540910859, value: 31 });
+  container.push({latitude: 37.7523621271745, longitude: -122.419098922252, value: 33 });
+  container.push({latitude: 37.781151017376, longitude: -122.395238446153, value: 35 });
+  container.push({latitude: 37.7664968242361, longitude: -122.453419809742, value: 36 });
+  container.push({latitude: 37.7665426159438, longitude: -122.452671668848, value: 37 });
+  container.push({latitude: 37.7872265941824, longitude: -122.443403365685, value: 38 });
+  container.push({latitude: 37.7862638517202, longitude: -122.418871304077, value: 39 });
+  container.push({latitude: 37.7974870787045, longitude: -122.435296260429, value: 40 });
 
 
   preClustering.push([37.7835939, -122.40890360000003]);
@@ -118,8 +116,31 @@ exports.all = function(req, res) {
   preClustering.push([37.7945354105227, -122.416146766003]);
   preClustering.push([37.7357241811434, -122.446668843873]);
   preClustering.push([37.7899962614841, -122.411932009537]);
+  preClustering.push([37.7590705667859, -122.414398699505]);
+  preClustering.push([37.7678552815667, -122.422484406562]);
+  preClustering.push([37.7295235245486, -122.479519088222]);
+  preClustering.push([37.7216280665809, -122.455540910859]);
+  preClustering.push([37.7523621271745, -122.419098922252]);
+  preClustering.push([37.781151017376, -122.395238446153]);
+  preClustering.push([37.7664968242361, -122.453419809742]);
+  preClustering.push([37.7665426159438, -122.452671668848]);
+  preClustering.push([37.7872265941824, -122.443403365685]);
+  preClustering.push([37.7862638517202, -122.418871304077]);
+  preClustering.push([37.7974870787045, -122.435296260429]);
+
   clusters = clusterfck.kmeans(preClustering, drivers);
 
+  var balancedClusters;
+  do {
+    balancedClusters = true;
+    for (var k=0; k < clusters.length; k++) {
+      if (clusters[k].length < 5) {
+        clusters = clusterfck.kmeans(preClustering, drivers);
+        balancedClusters = false;
+      }
+      balancedClusters = balancedClusters && true;
+    }
+  } while(!balancedClusters);
 
   for (var j=0; j < container.length; j++) {
     var clusterFound = findClusterGroup(clusters, container[j]);
