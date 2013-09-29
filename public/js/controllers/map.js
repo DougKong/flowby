@@ -86,12 +86,7 @@ angular.module('mean.map')
           var firstLegCoordinates = [];
 
           tsp.startOver();
-          for (var k=0; k < legs.length; k++) {
-            for (var j=0; j < legs[k].steps.length;j++) {
-              firstLegCoordinates.push(legs[k].steps[j].start_location);
-            }
-          }
-          routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor: "#" + routeColors[0], strokeOpacity: 1.0, strokeWeight: 2}));
+          routes.push(new google.maps.DirectionsRenderer({directions: dir, map: $scope.myMap, suppressMarkers: true, polylineOptions: {strokeColor:  "#" + routeColors[0], strokeOpacity: 0.8, strokeWeight: 3}}));
 
           for (var i = 0; i < m.length; i++) {
             if (m[i].cluster === 1) {
@@ -110,12 +105,7 @@ angular.module('mean.map')
             var firstLegCoordinates = [];
 
             tsp.startOver();
-            for (var k=0; k < legs.length; k++) {
-              for (var j=0; j < legs[k].steps.length;j++) {
-                firstLegCoordinates.push(legs[k].steps[j].start_location);
-              }
-            }
-            routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[1], strokeOpacity: 1.0, strokeWeight: 2}));
+            routes.push(new google.maps.DirectionsRenderer({directions: dir, map: $scope.myMap, suppressMarkers: true, polylineOptions: {strokeColor:  "#" + routeColors[1], strokeOpacity: 0.8, strokeWeight: 3}}));
 
             for (var i = 0; i < m.length; i++) {
               if (m[i].cluster === 2) {
@@ -134,12 +124,7 @@ angular.module('mean.map')
               var firstLegCoordinates = [];
 
               tsp.startOver();
-              for (var k=0; k < legs.length; k++) {
-                for (var j=0; j < legs[k].steps.length;j++) {
-                  firstLegCoordinates.push(legs[k].steps[j].start_location);
-                }
-              }
-              routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[2], strokeOpacity: 1.0, strokeWeight: 2}));
+              routes.push(new google.maps.DirectionsRenderer({directions: dir, map: $scope.myMap, suppressMarkers: true, polylineOptions: {strokeColor:  "#" + routeColors[2], strokeOpacity: 0.8, strokeWeight: 3}}));
 
               for (var i = 0; i < m.length; i++) {
                 if (m[i].cluster === 3) {
@@ -158,12 +143,7 @@ angular.module('mean.map')
                 var firstLegCoordinates = [];
 
                 tsp.startOver();
-                for (var k=0; k < legs.length; k++) {
-                  for (var j=0; j < legs[k].steps.length;j++) {
-                    firstLegCoordinates.push(legs[k].steps[j].start_location);
-                  }
-                }
-                routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[3], strokeOpacity: 1.0, strokeWeight: 2}));
+                routes.push(new google.maps.DirectionsRenderer({directions: dir, map: $scope.myMap, suppressMarkers: true, polylineOptions: {strokeColor:  "#" + routeColors[3], strokeOpacity: 0.8, strokeWeight: 3}}));
 
                 for (var i = 0; i < m.length; i++) {
                   if (m[i].cluster === 4) {
@@ -182,12 +162,7 @@ angular.module('mean.map')
                   var firstLegCoordinates = [];
 
                   tsp.startOver();
-                  for (var k=0; k < legs.length; k++) {
-                    for (var j=0; j < legs[k].steps.length;j++) {
-                      firstLegCoordinates.push(legs[k].steps[j].start_location);
-                    }
-                  }
-                  routes.push(new google.maps.Polyline({path: firstLegCoordinates, map: $scope.myMap, strokeColor:  "#" + routeColors[4], strokeOpacity: 1.0, strokeWeight: 2}));                
+                  routes.push(new google.maps.DirectionsRenderer({directions: dir, map: $scope.myMap, suppressMarkers: true, polylineOptions: {strokeColor:  "#" + routeColors[4], strokeOpacity: 0.8, strokeWeight: 3}}));
                 });
               });
             });
