@@ -1,11 +1,11 @@
-# FlowTie.com
+# FlowBy
 
 You have a growing business with a customer base that relies on your timely deliveries.
 
 This app connections your shipments to an optimized route reccomendation engine.
 
 ## Deployed Version
-* [Not done yet](http://www.flowby.net) (Amazon Web Services)
+* [FlowBy](http://www.flowby.net) (Amazon Web Services)
 
 ## Screen Shots
 ![[app]](screenshots/app.png)
@@ -46,4 +46,4 @@ This app connections your shipments to an optimized route reccomendation engine.
 
 ## More Information
 
-  * Contact Doug Kong on any issue via [E-Mail](mailto:kongdouglas@gmail.com), or [Twitter](http://www.twitter.com/dougkong).
+  * Contact Doug Kong on any issue via [E-Mail](mailto:kongdouglas@gmail.com), [Linkedin](http://www.linkedin.com/in/dougkong/) or [Twitter](http://www.twitter.com/dougkong).
