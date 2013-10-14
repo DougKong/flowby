@@ -1,12 +1,12 @@
 {
     "name": "mean",
-    "description": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
+    "description": "FlowBy",
     "version": "1.0.0",
     "private": false,
-    "author": "Amos Haviv",
+    "author": "Doug Kong",
     "repository": {
         "type": "git",
-        "url": "https://github.com/linnovate/mean.git"
+        "url": "https://github.com/DougKong/flowby"
     },
     "engines": {
         "node": "0.10.x",
