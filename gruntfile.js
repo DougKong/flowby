@@ -28,10 +28,8 @@ module.exports = function(grunt) {
             },
         },
         css: {
-                files: ['public/css/**'],
-                options: {
-                    livereload: true
-                }
+                files: ['css/**/*.styl'],
+                tasks: ['stylus']
             }
         },
         jshint: {
