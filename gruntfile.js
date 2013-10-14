@@ -1,28 +1,33 @@
 module.exports = function(grunt) {
-    // Project Configuration
+// Project Configuration
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        watch: {
-            jade: {
-                files: ['app/views/**'],
-                options: {
-                    livereload: true,
-                },
+    pkg: grunt.file.readJSON('package.json'),
+    watch: {
+        jade: {
+            files: ['app/views/**'],
+            options: {
+                livereload: true,
             },
-            js: {
-                files: ['public/js/**', 'app/**/*.js'],
-                tasks: ['jshint'],
-                options: {
-                    livereload: true,
-                },
+        },
+        stylus: {
+            files: {
+                'public/css/styles.css': 'css/styles.styl'
+            }
+        },
+        js: {
+            files: ['public/js/**', 'app/**/*.js'],
+            tasks: ['jshint'],
+            options: {
+                livereload: true,
             },
-            html: {
-                files: ['public/views/**'],
-                options: {
-                    livereload: true,
-                },
+        },
+        html: {
+            files: ['public/views/**'],
+            options: {
+                livereload: true,
             },
-            css: {
+        },
+        css: {
                 files: ['public/css/**'],
                 options: {
                     livereload: true
