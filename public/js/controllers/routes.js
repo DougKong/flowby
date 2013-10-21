@@ -13,6 +13,11 @@ angular.module('mean.routes')
       $scope.selectedDriver = driver;
     };
 
+    // this needs to setup the routes side panel
+    $scope.init = function () {
+      console.log($scope);
+    };
+
     $scope.routes = [ 
       {
         shipmentName: "first shipment", 
