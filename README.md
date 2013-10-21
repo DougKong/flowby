@@ -5,7 +5,7 @@ You have a growing business with a customer base that relies on your timely deli
 This app connections your shipments to an optimized route reccomendation engine.
 
 ## Deployed Version
-* [FlowBy](http://www.flowby.net) (Amazon Web Services)
+* [FlowBy](http://www.flwby.com) (Amazon Web Services EC2)
 
 ## Screen Shots
 ![[app]](screenshots/app.png)
